@@ -7,6 +7,8 @@ import { ApiService } from '../service/api.service';
   styleUrls: ['./home.component.css']
 })
 export class HomeComponent {
+
+
   data: any;
 
   constructor(private api: ApiService) {

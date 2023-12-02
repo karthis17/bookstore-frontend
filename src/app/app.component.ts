@@ -13,10 +13,9 @@ export class AppComponent {
   logState: boolean;
   user:any;
   constructor(private api: ApiService ,private router: Router){
-    this.logState = this.api.loggedIn;
     this.user = JSON.parse(this.api.checkUserLogState());
     console.log(this.user)
-    if(this.user == null){
+    if(this.user == null || this.user == undefined){
       this.logState = false;
     } else {
       this.logState = true;

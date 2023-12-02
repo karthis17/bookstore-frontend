@@ -15,6 +15,7 @@ export class ApiService {
   addUserLocally(user:any){
     const userLocally = [user];
     localStorage.setItem('user', JSON.stringify(userLocally));
+
   }
 
   checkUserLogState(): any{
@@ -56,7 +57,7 @@ export class ApiService {
   }
 
   getUserShopdetails(id:any){
-    return this.http.get(this.endpoint+"user/get/"+id);
+    return this.http.get(this.endpoint+"user/get/shop-cart-items/"+id);
   }
 
   addItemToShopcart(data:any){
@@ -74,13 +75,30 @@ export class ApiService {
     this.res = false;
   }
 
-  sendComment(comment:any) {
-    this.local = localStorage.getItem('user')
+  sendComment(comment:any, id:any) {
+    this.local = JSON.parse(this.checkUserLogState());
     const com = {
-      id: this.local.id,
-      name: this.local.name,
+      id: id,
+      name: this.local[0].name,
       comment: comment
     }
-    return this.http.post(this.endpoint + '/books/comments', JSON.stringify(com), this._options);
+    console.log(com);
+    this.http.post(this.endpoint+'books/comments', JSON.stringify(com), this._options).subscribe();
   }
+
+  placeOrder(order:any) {
+    return this.http.post(this.endpoint+"user/orders/create", JSON.stringify(order), this._options)
+  }
+
+  setOutOfStock(book_list:any) {
+    book_list.forEach((book:String)=>{
+      this.http.get(this.endpoint+"books/add-to/out-of-stock/"+book).subscribe((res:any)=>{console.log(res);});
+    });
+
+  }
+
+  getOrderHistory(id:any) {
+    return this.http.get(this.endpoint+"user/order-history/id/"+id);
+  }
+
 }

@@ -14,6 +14,10 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { ShopCrtComponent } from './shop-crt/shop-crt.component';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import {MatButtonModule} from '@angular/material/button';
+import { ShoppingComponent } from './shopping/shopping.component';
+import {MatRadioModule} from '@angular/material/radio';
+import { OrderHistoryComponent } from './order-history/order-history.component';
+import { CommentComponent } from './comment/comment.component';
 
 
 @NgModule({
@@ -22,7 +26,10 @@ import {MatButtonModule} from '@angular/material/button';
     HomeComponent,
     BookDeatileComponent,
     LoginComponent,
-    ShopCrtComponent
+    ShopCrtComponent,
+    ShoppingComponent,
+    OrderHistoryComponent,
+    CommentComponent
   ],
   imports: [
     BrowserModule,
@@ -34,7 +41,8 @@ import {MatButtonModule} from '@angular/material/button';
     MatInputModule,
     ReactiveFormsModule,
     MatTooltipModule,
-    MatButtonModule
+    MatButtonModule,
+    MatRadioModule
   ],
   providers: [],
   bootstrap: [AppComponent]

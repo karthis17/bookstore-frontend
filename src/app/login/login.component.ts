@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { ApiService } from '../service/api.service';
-import { FormControl, FormGroup } from '@angular/forms';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 
 @Component({
@@ -10,18 +10,21 @@ import { Router } from '@angular/router';
 })
 export class LoginComponent {
   class:any = "";
-  flag =false;
+  flag:Boolean | undefined;
+  ngOnInit() {
+
+  }
   registerForm= new FormGroup({
-    name: new FormControl(""),
-    username: new FormControl(""),
-    password:new FormControl(""),
-    address:new FormControl(""),
-    phone:new FormControl(""),
+    name: new FormControl("", Validators.required),
+    username: new FormControl("", Validators.required),
+    password:new FormControl("", Validators.required),
+    address:new FormControl("", Validators.required),
+    phone:new FormControl("", Validators.required),
   });
 
   loginForm = new FormGroup({
-    username: new FormControl(""),
-    password: new FormControl("")
+    username: new FormControl("", Validators.required),
+    password: new FormControl("", Validators.required)
   })
 
   signup(){
@@ -37,12 +40,14 @@ export class LoginComponent {
     console.log(name);
   }
   newUserSubmit(){
-    console.log(JSON.stringify(this.registerForm.value));
-    if(this.api.userRegister(this.registerForm.value)){
-      this.router.navigate(['/']);
-      this.flag=false;
+    if(this.registerForm.valid){
+      if(this.api.userRegister(this.registerForm.value)){
+        this.flag=false;
+      } else {
+        this.flag=true;
+      }
     } else {
-      this.flag=true;
+      this.flag=false;
     }
   }
 

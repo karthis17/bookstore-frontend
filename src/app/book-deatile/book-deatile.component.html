@@ -1,35 +1,43 @@
 <div class="container" style="background-color: #fff">
   <div class="row py-5 px-3">
-    <div id="carouselExampleIndicators" class="carousel slide col-lg-4">
-      <div class="carousel-inner">
-        <div class="carousel-item active">
-          <img src="{{ data.img1 }}" class="d-block w-100" alt="..." />
+    <div class="col-lg-4">
+      <div id="carouselExampleIndicators" class="carousel slide sticky-img">
+        <div class="carousel-inner">
+          <div class="carousel-item active">
+            <img src="{{ data.img1 }}" class="d-block w-100" alt="..." />
+          </div>
+          <div class="carousel-item">
+            <img src="{{ data.img2 }}" class="d-block w-100" alt="..." />
+          </div>
+          <div class="carousel-item">
+            <img src="{{ data.img3 }}" class="d-block w-100" alt="..." />
+          </div>
         </div>
-        <div class="carousel-item">
-          <img src="{{ data.img2 }}" class="d-block w-100" alt="..." />
-        </div>
-        <div class="carousel-item">
-          <img src="{{ data.img3 }}" class="d-block w-100" alt="..." />
-        </div>
+        <button
+          class="carousel-control-prev"
+          type="button"
+          data-bs-target="#carouselExampleIndicators"
+          data-bs-slide="prev"
+        >
+          <span
+            class="pre-btn carousel-control-prev-icon"
+            aria-hidden="true"
+          ></span>
+          <span class="visually-hidden">Previous</span>
+        </button>
+        <button
+          class="carousel-control-next"
+          type="button"
+          data-bs-target="#carouselExampleIndicators"
+          data-bs-slide="next"
+        >
+          <span
+            class="nex-btn carousel-control-next-icon"
+            aria-hidden="true"
+          ></span>
+          <span class="visually-hidden">Next</span>
+        </button>
       </div>
-      <button
-        class="carousel-control-prev"
-        type="button"
-        data-bs-target="#carouselExampleIndicators"
-        data-bs-slide="prev"
-      >
-        <span class="pre-btn carousel-control-prev-icon" aria-hidden="true"></span>
-        <span class="visually-hidden">Previous</span>
-      </button>
-      <button
-        class="carousel-control-next"
-        type="button"
-        data-bs-target="#carouselExampleIndicators"
-        data-bs-slide="next"
-      >
-        <span class="nex-btn carousel-control-next-icon" aria-hidden="true"></span>
-        <span class=" visually-hidden">Next</span>
-      </button>
     </div>
     <div class="book-content col-lg-6 mx-auto">
       <h1>{{ data.title }}</h1>
@@ -53,8 +61,14 @@
           Special PriceGet extra 29% off (price inclusive of cashback/coupon)T&C
         </li>
       </ul>
-      <button class="btn btn-success" (click)="add()">Add to Cart</button>
-      <div *ngIf="success" class="alert alert-secondary" role="alert">
+      <button
+        class="{{ data.outOfStock ? 'disabled' : '' }} btn btn-success"
+        (click)="add()"
+      >
+        Add to Cart
+      </button>
+      <p style="color: red" *ngIf="data.outOfStock">Currently Out of Stock</p>
+      <div *ngIf="success" class="alert alert-success my-3" role="alert">
         Successfully added
       </div>
       <div class="accordion" id="accordionExample">
@@ -84,25 +98,7 @@
           </div>
         </div>
       </div>
-      <div class="comments">
-        <div class="example-form w-100">
-          <mat-form-field class="example-full-width w-100 position-relative">
-            <input matInput placeholder="Leave your review " class="w-50" >
-            <button (click)="submit()" class="send-btn"><mat-icon  (onClick)="submit()" >send</mat-icon></button>
-          </mat-form-field>
-          </div>
-      </div>
-      <ul class="list-group list-group-flush">
-        <li *ngFor="let comment of data.comments" class="list-group-item d-flex justify-content-between align-items-start">
-          <div *ngIf="comment.name != ''  " class="d-flex align-items-center">
-            <div class="avatar">{{comment.name[0].toUpperCase()}}</div>
-            <div  class="ms-2 me-auto">
-              <div class="fw-bold">{{comment.name}}</div>
-              {{comment.comment}}
-            </div>
-          </div>
-        </li>
-      </ul>
+      <app-comment [id] ="id" [comments]="data.comments"></app-comment>
     </div>
   </div>
 </div>
