@@ -6,16 +6,17 @@
         placeholder="Leave your review "
         class="w-50"
         [formControl]="comment"
+        (change)="submit()"
       />
       <button (click)="submit()" class="send-btn">
-        <mat-icon (onClick)="submit()">send</mat-icon>
+        <mat-icon>send</mat-icon>
       </button>
     </mat-form-field>
   </div>
 </div>
 <ul class="list-group list-group-flush">
   <li
-    *ngFor="let comment of comments"
+    *ngFor="let comment of comments['comments']"
     class="list-group-item d-flex justify-content-between align-items-start"
   >
     <div *ngIf="comment.name != ''" class="d-flex align-items-center">

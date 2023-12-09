@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { ApiService } from '../service/api.service';
+import { AuthService } from '../service/auth.service';
 
 @Component({
   selector: 'app-order-history',
@@ -8,10 +9,11 @@ import { ApiService } from '../service/api.service';
 })
 export class OrderHistoryComponent {
   history: any;
-  userId = JSON.parse(this.api.checkUserLogState());
+  userId: any;
 
-  constructor(private api: ApiService) {
-    api.getOrderHistory(this.userId[0].id).subscribe((response) => {
+  constructor(private api: ApiService, private auth: AuthService) {
+    this.auth.getUser().then((user) => { this.userId = user.id; })
+    api.getOrderHistory(this.userId).subscribe((response) => {
       this.history = response;
       console.log(this.history);
     });

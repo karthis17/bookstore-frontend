@@ -1,6 +1,6 @@
-<nav class="navbar navbar-expand-lg nav sticky-top" style="z-index: 10000">
-  <div class="box container">
-    <a class="navbar-brand" href="#">
+<nav class="navbar navbar-expand-lg nav sticky-top" style="z-index: 1">
+  <div class="container">
+    <a class="navbar-brand w-50" routerLink="/">
       <img
         src="../assets/logo/logo.jpg"
         height="55"
@@ -8,7 +8,6 @@
         routerLink="/"
       />
     </a>
-    <div class="search-box w-100"></div>
     <button
       class="navbar-toggler"
       type="button"
@@ -20,7 +19,34 @@
     >
       <span class="navbar-toggler-icon"></span>
     </button>
-    <div class="collapse navbar-collapse" id="navbarNav">
+
+    <div class="collapse navbar-collapse w-100" id="navbarNav">
+      <div class="search-box w-100 me-2">
+        <input
+          type="text"
+          placeholder="Search"
+          class="search-box mx-auto w-100"
+          [formControl]="search_book"
+          (change)="search()"
+          (input)="onChange()"
+          [matAutocomplete]="auto"
+        />
+        <button class="search-icon">
+          <mat-autocomplete
+            style="z-index: 100"
+            autoActiveFirstOption
+            #auto="matAutocomplete"
+          >
+            <mat-option
+              *ngFor="let i of option"
+              [value]="i.title"
+              (onSelectionChange)="navigate(i._id)"
+              >{{ i.title }}</mat-option
+            >
+          </mat-autocomplete>
+          <mat-icon>search</mat-icon>
+        </button>
+      </div>
       <ul class="navbar-nav">
         <li class="nav-item">
           <a class="nav-link active icon-link" aria-current="page" href="#">
@@ -51,14 +77,16 @@
             data-bs-toggle="dropdown"
             aria-expanded="false"
           >
-            <mat-icon>person</mat-icon> {{ user[0].name }}
+            <mat-icon>person</mat-icon> {{ user.name }}
           </a>
           <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
             <li>
-              <a class="dropdown-item">{{ user[0].username }}</a>
+              <a class="dropdown-item">{{ user.username }}</a>
             </li>
             <li class="my-2">
-              <a class="dropdown-item" routerLink="/order-history">order history</a>
+              <a class="dropdown-item" routerLink="/order-history"
+                >order history</a
+              >
             </li>
             <li><hr class="dropdown-divider" /></li>
             <li>
@@ -78,6 +106,7 @@
     </div>
   </div>
 </nav>
+<!-- header -->
 <router-outlet></router-outlet>
 <div class="bg-dark my-5" style="color: white">
   <footer class="text-center">
@@ -139,3 +168,4 @@
     <!-- Copyright -->
   </footer>
 </div>
+<!--footer -->

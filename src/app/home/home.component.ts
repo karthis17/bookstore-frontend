@@ -12,6 +12,6 @@ export class HomeComponent {
   data: any;
 
   constructor(private api: ApiService) {
-    this.api.getallBooks().subscribe(books =>this.data=books);
+    this.api.getallBooks().subscribe(books => this.data = books);
   }
 }

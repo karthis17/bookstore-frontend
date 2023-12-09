@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-import {MatToolbarModule} from '@angular/material/toolbar';
+import { MatToolbarModule } from '@angular/material/toolbar';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -13,11 +13,12 @@ import { LoginComponent } from './login/login.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { ShopCrtComponent } from './shop-crt/shop-crt.component';
 import { MatTooltipModule } from '@angular/material/tooltip';
-import {MatButtonModule} from '@angular/material/button';
+import { MatButtonModule } from '@angular/material/button';
 import { ShoppingComponent } from './shopping/shopping.component';
-import {MatRadioModule} from '@angular/material/radio';
+import { MatRadioModule } from '@angular/material/radio';
 import { OrderHistoryComponent } from './order-history/order-history.component';
 import { CommentComponent } from './comment/comment.component';
+import { MatAutocompleteModule } from '@angular/material/autocomplete';
 
 
 @NgModule({
@@ -42,7 +43,8 @@ import { CommentComponent } from './comment/comment.component';
     ReactiveFormsModule,
     MatTooltipModule,
     MatButtonModule,
-    MatRadioModule
+    MatRadioModule,
+    MatAutocompleteModule
   ],
   providers: [],
   bootstrap: [AppComponent]

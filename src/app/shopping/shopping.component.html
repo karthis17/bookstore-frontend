@@ -10,13 +10,13 @@
         <div class="col-lg-6">
           <mat-form-field appearance="outline">
             <mat-label>Name</mat-label>
-            <input matInput value="{{ res.name }}" readonly />
+            <input matInput [value]="res.name" readonly />
           </mat-form-field>
         </div>
         <div class="col-lg-6">
           <mat-form-field appearance="outline">
             <mat-label>Username</mat-label>
-            <input matInput readonly value="{{ res.username }}" />
+            <input matInput readonly [value]="res.username" />
           </mat-form-field>
         </div>
         <mat-form-field appearance="outline">

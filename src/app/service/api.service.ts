@@ -5,100 +5,72 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
   providedIn: 'root'
 })
 export class ApiService {
-  res:boolean=false;
+  res: boolean = false;
   constructor(private http: HttpClient) { }
-  endpoint:string = 'http://localhost:3000/api/';
+  endpoint: string = 'http://localhost:3000/api/';
 
-  loggedIn:boolean = false;
-  local:any;
+  local: any;
   _options = { headers: new HttpHeaders({ 'Content-Type': 'application/json' }) };
-  addUserLocally(user:any){
-    const userLocally = [user];
-    localStorage.setItem('user', JSON.stringify(userLocally));
 
+
+  getallBooks() {
+    return this.http.get(this.endpoint + "books");
   }
 
-  checkUserLogState(): any{
-    try {
-      return localStorage.getItem('user')
-    } catch(e){
-      return false;
-    }
+  getBookDetails(id: any) {
+    return this.http.get(this.endpoint + "books/get/" + id);
   }
 
-  getallBooks(){
-    return this.http.get(this.endpoint+"books");
+  addBook(data: any) {
+    return this.http.post(this.endpoint + "books/create", JSON.stringify(data));
   }
 
-  getBookDetails(id: any){
-    return this.http.get(this.endpoint+"books/get/"+id);
+  getUserShopdetails(id: any) {
+    return this.http.get(this.endpoint + "user/get/shop-cart-items/" + id);
   }
 
-  addBook(data:any){
-    return this.http.post(this.endpoint+"books/create", JSON.stringify(data));
-  }
-
-  userRegister(data:any){
-    this.http.post(this.endpoint+"user/register", JSON.stringify(data),this._options).subscribe((response:any)=>{
-        this.res = true;
-        this.loggedIn = true;
-        this.addUserLocally(response);
-      });
-    return this.res;
-  }
-
-  userLogin(user:any) {
-    this.http.post(this.endpoint + 'user/login', JSON.stringify(user), this._options).subscribe((response:any)=>{
-      this.res = true;
-      this.loggedIn = true;
-      this.addUserLocally(response);
-    });
-    return this.res;
-  }
-
-  getUserShopdetails(id:any){
-    return this.http.get(this.endpoint+"user/get/shop-cart-items/"+id);
-  }
-
-  addItemToShopcart(data:any){
+  addItemToShopcart(data: any) {
     console.log(data);
-    return this.http.post(this.endpoint+"user/addshopcart", JSON.stringify(data), this._options)
+    return this.http.post(this.endpoint + "user/addshopcart", JSON.stringify(data), this._options)
   }
 
-  delShopcarItem(data:any){
-    return this.http.post(this.endpoint+"user/shop/delete", JSON.stringify(data), this._options)
+  delShopcarItem(data: any) {
+    return this.http.post(this.endpoint + "user/shop/delete", JSON.stringify(data), this._options)
   }
 
-  logout(){
-    localStorage.clear();
-    this.loggedIn=false;
-    this.res = false;
-  }
-
-  sendComment(comment:any, id:any) {
-    this.local = JSON.parse(this.checkUserLogState());
+  sendComment(comment: any, id: any, name: string) {
+    // this.local = JSON.parse(this.checkUserLogState());
     const com = {
       id: id,
-      name: this.local[0].name,
+      name: name,
       comment: comment
     }
     console.log(com);
-    this.http.post(this.endpoint+'books/comments', JSON.stringify(com), this._options).subscribe();
+    this.http.post(this.endpoint + 'books/comments/add', JSON.stringify(com), this._options).subscribe();
   }
 
-  placeOrder(order:any) {
-    return this.http.post(this.endpoint+"user/orders/create", JSON.stringify(order), this._options)
+  getComments(id: string | null) {
+    console.log(id);
+    return this.http.get(this.endpoint + 'books/comments/get/' + id);
   }
 
-  setOutOfStock(book_list:any) {
-    book_list.forEach((book:String)=>{
-      this.http.get(this.endpoint+"books/add-to/out-of-stock/"+book).subscribe((res:any)=>{console.log(res);});
+  placeOrder(order: any) {
+    return this.http.post(this.endpoint + "user/orders/create", JSON.stringify(order), this._options)
+  }
+
+  setOutOfStock(book_list: any) {
+    book_list.forEach((book: String) => {
+      this.http.get(this.endpoint + "books/add-to/out-of-stock/" + book).subscribe((res: any) => { console.log(res); });
     });
 
   }
 
-  getOrderHistory(id:any) {
-    return this.http.get(this.endpoint+"user/order-history/id/"+id);
+  getOrderHistory(id: any) {
+    return this.http.get(this.endpoint + "user/order-history/id/" + id);
+  }
+
+  searchBook(title: string) {
+    return this.http.get(`${this.endpoint}books/search/${title.length === 0 ? '9' : title}`);
   }
 
 }

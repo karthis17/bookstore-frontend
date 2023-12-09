@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { ApiService } from '../service/api.service';
+import { AuthService } from '../service/auth.service';
 import { ActivatedRoute } from '@angular/router';
-import { FormControl, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-book-deatile',
@@ -9,25 +9,27 @@ import { FormControl, Validators } from '@angular/forms';
   styleUrls: ['./book-deatile.component.css']
 })
 export class BookDeatileComponent {
-  data:any;
+  data: any;
   id: string | null;
   success: boolean = false;
 
-  constructor(private bookservice: ApiService, private router: ActivatedRoute) {
+  constructor(private bookservice: ApiService, private router: ActivatedRoute, private auth: AuthService) {
     this.id = this.router.snapshot.paramMap.get('id');
-    this.bookservice.getBookDetails(this.id).subscribe((book) => {this.data=book})
+    this.bookservice.getBookDetails(this.id).subscribe((book) => { this.data = book })
   }
 
 
 
-  add(){
+  add() {
+    let _id;
+    this.auth.getUser().then((user) => { _id = user.id; })
     const item = {
-      id: JSON.parse(this.bookservice.checkUserLogState())[0].id,
+      id: _id,
       product: this.data.title,
       price: this.data.rate
     };
-    this.bookservice.addItemToShopcart(item).subscribe(result=>{console.log(result)});
-    this.success=true;
+    this.bookservice.addItemToShopcart(item).subscribe(result => { console.log(result) });
+    this.success = true;
   }
 
 
