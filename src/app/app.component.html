@@ -84,8 +84,11 @@
               <a class="dropdown-item">{{ user.username }}</a>
             </li>
             <li class="my-2">
-              <a class="dropdown-item" routerLink="/order-history"
-                >order history</a
+              <a
+                class="dropdown-item"
+                routerLink="/order-history/{{ user.id }}"
+              >
+                order history</a
               >
             </li>
             <li><hr class="dropdown-divider" /></li>

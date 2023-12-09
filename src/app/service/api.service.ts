@@ -7,7 +7,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 export class ApiService {
   res: boolean = false;
   constructor(private http: HttpClient) { }
-  endpoint: string = 'http://localhost:3000/api/';
+  endpoint: string = 'https://bookstore-5wpg.onrender.com/api/';
 
   local: any;
   _options = { headers: new HttpHeaders({ 'Content-Type': 'application/json' }) };

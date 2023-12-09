@@ -9,7 +9,7 @@ export class AuthService {
 
   loggedIn = new BehaviorSubject<boolean>(false);
   logState: Observable<boolean> = this.loggedIn.asObservable();
-  endpoint = 'http://localhost:3000/api/user'; // Replace with your API endpoint
+  endpoint = 'https://bookstore-5wpg.onrender.com/api/user'; // Replace with your API endpoint
   _options = { headers: new HttpHeaders({ 'Content-Type': 'application/json' }) };
 
   constructor(private http: HttpClient) {
